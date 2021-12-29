@@ -6,6 +6,6 @@ services:
 
 before_install:
   - docker build -t mikulass/docker-react-22 -f Dockerfile.dev .
-
+##
 script:
   - docker run -e CI=true mikulass/docker-react-22 npm run test -- --coverage
