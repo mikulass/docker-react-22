@@ -6,6 +6,18 @@ services:
 
 before_install:
   - docker build -t mikulass/docker-react-22 -f Dockerfile.dev .
-##
+
 script:
-  - docker run -e CI=true mikulass/docker-react-22 npm run test -- --coverage
+  - docker run -e CI=true mikulass/docker-react-22 npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: 'us-east-1'
+  app: 'docker-react-22'
+  env: 'Dockerreact22-env'
+  bucket_name: 'elasticbeanstalk-us-east-1-724326462023'
+  bucket_path: 'docker-react-22'
+  on:
+    branch: main
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
